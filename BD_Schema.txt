@@ -1,0 +1,27 @@
+CREATE DATABASE workhub_bd;
+USE workhub_bd;
+
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    pwd VARCHAR(255) NOT NULL,
+    foto_perfil VARCHAR(255),
+    puesto_trabajo VARCHAR(50),
+    empresa VARCHAR(100),
+    departamento VARCHAR(50),
+    telefono VARCHAR(15),
+    fecha_ingreso DATE,
+    ubicacion VARCHAR(100)
+);
+
+CREATE TABLE Fichajes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    fecha DATE,
+    hora_entrada TIME,
+    hora_salida TIME,
+    tiempo_trabajado TIME,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id)
+);
