@@ -1,4 +1,5 @@
-const form = document.querySelector("#login-form");
+//Variables del DOM
+const loginForm = document.querySelector("#login-form");
 let emailErrorContainer = document.querySelector("#email-error-container");
 let pwdErrorContainer = document.querySelector("#pwd-error-container");
 let emailError = document.createElement("spam");
@@ -7,13 +8,11 @@ emailError.id = 'email-error';
 let passwordError = document.createElement("spam");
 passwordError.className = 'error';
 passwordError.id = 'password-error';
+// const registerForm=document.querySelector("#register-login");
 
-// let emailError = document.querySelector("#email-error");
-// let passwordError = document.querySelector("#password-error");
-
-form.addEventListener('submit', function (e) {
+//Formulario de Login
+loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
-
     let emial = document.querySelector("#email");
     let pwd = document.querySelector("#password");
 
@@ -39,6 +38,7 @@ form.addEventListener('submit', function (e) {
 
 });
 
+//Enviar datos a PHP
 async function sendData(email, password) {
     try {
         const response = await fetch("validar_credenciales.php", {
@@ -80,3 +80,9 @@ async function sendData(email, password) {
 
     }
 }
+
+// registerForm.addEventListener('submit', function(e){
+//     e.preventDefault();
+//     console.log("REGISTRO");
+
+// });
