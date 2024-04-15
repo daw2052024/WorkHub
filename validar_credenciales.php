@@ -1,5 +1,4 @@
 <?php
-session_start();
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data['email'];
 $password = $data['password'];
@@ -8,11 +7,9 @@ try {
     $bd = new PDO('mysql:dbname=workhub_bd;host=localhost', 'root', '');
     $select = "SELECT id FROM Usuarios WHERE correo='" . $email . "' AND pwd='" . $password . "';";
     $user = $bd->query($select);
-    $id = $user->fetch();
-    $idUser = $id['id'];
+
     //Compruebo que el usuario existe con los datos proporcionados
     if ($user->rowCount() > 0) {
-        createSession($idUser, $email);
         echo json_encode(array("success" => "Inicio de sesión exitoso"));
     } else {
         // Verificar si el correo electrónico es incorrecto
@@ -39,9 +36,4 @@ try {
     echo json_encode(array("error" => "Error al conectar a la base de datos: " . $th->getMessage()));
 }
 
-function createSession($id, $emailUser)
-{
-    $_SESSION['idUsuario'] = $id;
-    $_SESSION['correoUsuario'] = $emailUser;
-}
 
