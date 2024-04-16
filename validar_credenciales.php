@@ -1,4 +1,5 @@
 <?php
+session_start();
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data['email'];
 $password = $data['password'];
@@ -10,7 +11,10 @@ try {
 
     //Compruebo que el usuario existe con los datos proporcionados
     if ($user->rowCount() > 0) {
-        echo json_encode(array("success" => "Inicio de sesión exitoso"));
+        if (!isset($_SESSION['idUsuario']) && !isset($_SESSION['correoUsuario'])) {
+            createSession($idUser, $email);
+        }
+        echo json_encode(array("success" => "Inicio de sesion exitoso"));
     } else {
         // Verificar si el correo electrónico es incorrecto
         $selectEmail = "SELECT id FROM Usuarios WHERE correo= '" . $email . "'";
@@ -36,4 +40,10 @@ try {
     echo json_encode(array("error" => "Error al conectar a la base de datos: " . $th->getMessage()));
 }
 
+
+function createSession($id, $emailUser)
+{
+    $_SESSION['idUsuario'] = $id;
+    $_SESSION['correoUsuario'] = $emailUser;
+}
 
