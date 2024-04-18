@@ -16,17 +16,13 @@ loginForm.addEventListener('submit', function (e) {
     let password = document.querySelector("#password").value;
 
     if (email === '' || email === null) {
-        emailError.innerText = 'Por favor, introduce tu correo para acceder';
-        emailError.style.color = 'red';
-        emailErrorContainer.appendChild(emailError);
+        handleRegistrationErrors("email_vacio");
         return false;
     } else {
         emailErrorContainer.innerText = '';
     }
     if (password === '' || password === null) {
-        passwordError.innerText = 'Por favor, introduce tu contraseña para acceder';
-        passwordError.style.color = 'red';
-        pwdErrorContainer.appendChild(passwordError);
+        handleRegistrationErrors("password_vacio");
         return false;
     } else {
         pwdErrorContainer.innerText = '';
@@ -52,16 +48,17 @@ async function sendData(email, password) {
         console.log(data);
 
         if (data.error) {
-            handleAuthenticationError(data.error);
+            handleRegistrationErrors(data.error);
         } else {
-            window.location.href = 'index.php';
+            handleAuthenticationSuccess()
         }
     } catch (error) {
         console.log("Error en la solicitud: " + error.message);
     }
 }
 
-function handleAuthenticationError(error) {
+function handleRegistrationErrors(error) {
+
     if (error === 'email and pwd') {
         emailError.innerText = 'No se ha encontrado ninguna cuenta con ese correo';
         emailError.style.color = 'red';
@@ -77,13 +74,23 @@ function handleAuthenticationError(error) {
         passwordError.innerText = 'Contraseña incorrecta';
         passwordError.style.color = 'red';
         pwdErrorContainer.appendChild(passwordError);
+
+    } else if (error === "email_vacio") {
+        emailError.innerText = 'Por favor, introduce tu correo para acceder';
+        emailError.style.color = 'red';
+        emailErrorContainer.appendChild(emailError);
+    } else if (error === 'password_vacio') {
+        passwordError.innerText = 'Por favor, introduce tu contraseña para acceder';
+        passwordError.style.color = 'red';
+        pwdErrorContainer.appendChild(passwordError);
     } else {
         emailErrorContainer.innerText = '';
         pwdErrorContainer.innerText = '';
     }
 }
 
-// function handleAuthenticationSuccess(success) {
-//     // Manejar el éxito de la autenticación, por ejemplo, redirigir a otra página
-//     console.log("Autenticación exitosa: " + success);
-// }
+function handleAuthenticationSuccess() {
+    console.log("Autenticación exitosa");
+    window.location.href = 'index.php';
+
+}
