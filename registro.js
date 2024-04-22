@@ -85,8 +85,7 @@ async function sendDataToRegister(nombre, email, pwd, confPwd) {
         if (data.error) {
             handleRegistrationErrors(data.error);
         } else {
-            //window.location.href = 'index.php';
-            alert("REGISTRADO");
+            window.location.href = 'login.php';
         }
     } catch (error) {
         console.log("Error en la solicitud: " + error.message);
@@ -145,9 +144,6 @@ function handleRegistrationErrors(errors) {
             document.getElementById("confirm_password").value = "";
         }
     });
-
-
-
 }
 
 function clearRegistrationErrors() {
