@@ -4,27 +4,32 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f5f9; 
     color: #333;
-    min-height: 100vh; /* Establecer altura mínima de la ventana del navegador */
+    min-height: 100vh; 
     display: flex;
-    flex-direction: column; /* Establecer dirección de los elementos como columna */
+    flex-direction: column; 
 }
 
-/* Cabecera */
 header {
     background-color: white; 
-    padding: 10px 20px; 
-    margin-top: 30px; 
+    padding: 10px; 
+    margin-top: 20px; 
     text-align: center; 
     border-radius: 30px;
 }
 
 .logo {
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 80px; 
+}
+
+#logo_app {
+    max-width: 200px; 
+    height: auto; 
 }
 
 nav {
     display: inline-block;
+    margin-left: 40px; 
 }
 
 nav ul {
@@ -41,17 +46,37 @@ nav ul li {
 nav ul li a {
     color: #333;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px; 
+    margin-right: 10px; 
+    padding: 5px 10px; 
 }
 
-/* Cuerpo */
 main {
     text-align: center;
     padding: 20px;
 }
 
 #carousel {
-    /* Estilos para el carrusel de imágenes se aplicarán con JavaScript */
+    display: flex;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 110%;
+    height: auto;
+    object-fit: cover;
+}
+
+.slide {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
@@ -82,13 +107,12 @@ p {
     background-color: #5d95d0;
 }
 
-/* Pie de página */
 footer {
     text-align: center;
     padding: 20px;
     background-color: #28517d;
     color: white;
-    margin-top: auto; /* Colocar el footer al final */
+    margin-top: auto; 
 }
 
 footer p {
