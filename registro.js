@@ -81,14 +81,16 @@ async function sendDataToRegister(nombre, email, pwd, confPwd) {
 
         const data = await response.json();
         console.log(data);
-
+        let errors = [];
         if (data.error) {
-            handleRegistrationErrors(data.error);
+            errors.push(data.error);
+            handleRegistrationErrors(errors);
         } else {
             window.location.href = 'login.php';
         }
     } catch (error) {
-        console.log("Error en la solicitud: " + error.message);
+        console.log("Error en la solicitud: " + error.message); // Corregir esta línea
+
     }
 }
 
@@ -135,6 +137,10 @@ function handleRegistrationErrors(errors) {
             nameErrorContainer.appendChild(nameError);
         } else if (error === "email_invalido") {
             emailError.innerText = 'Formato de email incorrecto';
+            emailError.style.color = 'red';
+            emailErrorContainer.appendChild(emailError);
+        } else if (error === "usuario_existe") {
+            emailError.innerText = 'Email ya en uso, introudizca otro para crear al usuario';
             emailError.style.color = 'red';
             emailErrorContainer.appendChild(emailError);
         } else if (error === 'contraseña_no_coincide') {

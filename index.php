@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+//Verificar si hay session activa
+
+if (!isset($_SESSION['correoUsuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,11 +29,11 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Inicio</a></li>
+                <li><a href="index.php">Inicio</a></li>
                 <li><a href="#">Fichaje</a></li>
                 <li><a href="#">Calendario</a></li>
                 <li><a href="#">Perfil</a></li>
-                <li><a href="#">Salir</a></li>
+                <li><a href="delete_session.php">Salir</a></li>
             </ul>
         </nav>
     </header>
@@ -42,8 +55,8 @@
     </main>
 
     <footer>
-        <p>Derechos de autor © Año | Nombre de tu aplicación</p>
-        <p>Contacto: correo@tudominio.com</p>
+        <p>Derechos de autor © 2024 | WorkHub</p>
+        <p>Contacto: marcos.piedrahita.tellez@iesjulianmarias.es</p>
     </footer>
 </body>
 

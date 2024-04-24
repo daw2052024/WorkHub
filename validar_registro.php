@@ -1,32 +1,13 @@
 <?php
+require_once "conexion.php";
+
 $data = json_decode(file_get_contents("php://input"), true);
 $nombre = $data['nombre'];
 $email = $data['email'];
 $password = $data['password'];
 $confPwd = $data['confPwd'];
 
-
 try {
-    // Validar campos vacíos
-    if (empty($nombre)) {
-        echo json_encode(array("error" => "name_vacio"));
-        exit();
-    }
-
-    if (empty($email)) {
-        echo json_encode(array("error" => "email_vacio"));
-        exit();
-    }
-
-    if (empty($password)) {
-        echo json_encode(array("error" => "password_vacio"));
-        exit();
-    }
-
-    if (empty($confPwd)) {
-        echo json_encode(array("error" => "confPassword_vacio"));
-        exit();
-    }
 
     // Validar campos
     if (!preg_match("/^[a-zA-Z\s-]+$/", $nombre)) {
@@ -43,19 +24,26 @@ try {
         echo json_encode(array("error" => "contraseña_no_coincide"));
         exit();
     }
+    // Verificar si el correo electrónico ya está registrado
+    $stmt = $bd->prepare("SELECT correo FROM Usuarios WHERE correo = ?");
+    $stmt->execute([$email]);
+    $existingEmail = $stmt->fetchColumn();
 
-    // Conexión a la base de datos
-    $bd = new PDO('mysql:dbname=workhub_bd;host=localhost', 'root', '');
-    $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($existingEmail) {
+        echo json_encode(array("error" => "usuario_existe"));
+        exit();
+    }
 
 
+    // Insertar usuario en la base de datos
     $stmt = $bd->prepare("INSERT INTO Usuarios(nombre, correo, pwd) VALUES (?, ?, ?)");
     $stmt->execute([$nombre, $email, $password]);
 
     echo json_encode(array("success" => "Registro exitoso"));
 
 } catch (PDOException $e) {
-    echo json_encode(array("error" => "Error al conectar a la base de datos: " . $e->getMessage()));
+    echo json_encode(array("error" => "Error al realizar la consulta: " . $e->getMessage()));
 } catch (Exception $e) {
     echo json_encode(array("error" => "Error en el servidor: " . $e->getMessage()));
 }
+

@@ -1,29 +1,37 @@
 <?php
 session_start();
+require_once "conexion.php"; // Incluir el archivo de conexión
+
+// Obtener datos del usuario
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data['email'];
 $password = $data['password'];
 
 try {
-    $bd = new PDO('mysql:dbname=workhub_bd;host=localhost', 'root', '');
-    $select = "SELECT id FROM Usuarios WHERE correo='" . $email . "' AND pwd='" . $password . "';";
-    $user = $bd->query($select);
+    $select = "SELECT id FROM Usuarios WHERE correo=:email AND pwd=:password";
+    $query = $bd->prepare($select);
+    $query->bindParam(':email', $email);
+    $query->bindParam(':password', $password);
+    $query->execute();
 
-    //Compruebo que el usuario existe con los datos proporcionados
-    if ($user->rowCount() > 0) {
+    // Comprobar si el usuario existe con los datos proporcionados
+    if ($query->rowCount() > 0) {
+        $userData = $query->fetch(PDO::FETCH_ASSOC);
+        $idUsuario = $userData['id'];
         if (!isset($_SESSION['idUsuario']) && !isset($_SESSION['correoUsuario'])) {
-            createSession($idUser, $email);
+            createSession($idUsuario, $email);
         }
-        echo json_encode(array("success" => "Inicio de sesion exitoso"));
+        echo json_encode(array("success" => "Inicio de sesión exitoso"));
     } else {
-        // Verificar si el correo electrónico es incorrecto
-        $selectEmail = "SELECT id FROM Usuarios WHERE correo= '" . $email . "'";
+        // Verificar si el correo electrónico y/o la contraseña son incorrectos
+        $selectEmail = "SELECT id FROM Usuarios WHERE correo=:email";
         $queryEmail = $bd->prepare($selectEmail);
+        $queryEmail->bindParam(':email', $email);
         $queryEmail->execute();
 
-        // Verificar si la contraseña es incorrecta
-        $selectPwd = "SELECT id FROM Usuarios WHERE pwd='" . $password . "';";
+        $selectPwd = "SELECT id FROM Usuarios WHERE pwd=:password";
         $queryPassword = $bd->prepare($selectPwd);
+        $queryPassword->bindParam(':password', $password);
         $queryPassword->execute();
 
         if ($queryEmail->rowCount() == 0 && $queryPassword->rowCount() == 0) {
@@ -34,12 +42,9 @@ try {
             echo json_encode(array("error" => "pwd"));
         }
     }
-
-
-} catch (\Throwable $th) {
-    echo json_encode(array("error" => "Error al conectar a la base de datos: " . $th->getMessage()));
+} catch (\PDOException $e) {
+    echo json_encode(array("error" => "Error al realizar la consulta: " . $e->getMessage()));
 }
-
 
 function createSession($id, $emailUser)
 {
