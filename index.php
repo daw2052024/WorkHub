@@ -30,7 +30,7 @@ if (!isset($_SESSION['correoUsuario'])) {
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="#">Fichaje</a></li>
+                <li><a href="fichaje.php">Fichaje</a></li>
                 <li><a href="#">Calendario</a></li>
                 <li><a href="#">Perfil</a></li>
                 <li><a href="delete_session.php">Salir</a></li>
@@ -49,8 +49,8 @@ if (!isset($_SESSION['correoUsuario'])) {
         <h2>Registra tu jornada y gestiona eventos con facilidad. ¡WorkHub, tu aliado laboral!</h2>
 
         <div class="botones">
-            <button>Entrada</button>
-            <button>Salida</button>
+            <button id="entradaBtn">Entrada</button>
+            <button id="salidaBtn">Salida</button>
         </div>
     </main>
 
