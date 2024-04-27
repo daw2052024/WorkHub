@@ -51,7 +51,7 @@ salidaBtn.addEventListener('click', async function () {
         let diferencia = calcularDiferenciaTiempo(horaEntrada, horaSalida);
 
         try {
-            const response = await fetch("fichaje.php", {
+            const response = await fetch("fichar.php", {
                 method: 'POST',
                 headers: { 'content-type': 'application/x-www-form-urlencoded' },
                 body: JSON.stringify({

@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Styles/styles.css">
-    <script defer src="login.js"></script>
+    <script defer src="JavaScript/login.js"></script>
     <title>Iniciar sesión</title>
 </head>
 

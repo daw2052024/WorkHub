@@ -23,7 +23,7 @@ header {
 }
 
 #logo_app {
-    max-width: 200px; 
+    max-width: 120px; 
     height: auto; 
 }
 
@@ -126,4 +126,54 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+
+/* Estilos para el fondo de la página */
+#background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#imgFondo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos para la tabla de fichajes */
+#fichajes-container {
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+#fichajes-table {
+    width: 55%;
+    border-collapse: collapse;
+}
+
+#fichajes-table th,
+#fichajes-table td {
+    padding: 15px; /* Se reduce el padding para disminuir la separación */
+}
+
+#fichajes-table th {
+    text-align: left;
+    background-color: #1d2023;
+}
+#fichajes-table td {
+    text-align: left;
+    background-color: #262a2d;
+}
+
+
+#fichajes-table tbody tr:nth-child(even) {
+    background-color: #1f3a4a;
 }

@@ -1,14 +1,10 @@
 <?php
 session_start();
 
-//Verificar si hay session activa
-
 if (!isset($_SESSION['correoUsuario'])) {
     header("Location: login.php");
     exit();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +14,7 @@ if (!isset($_SESSION['correoUsuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Styles/indexStyles.css">
-    <script defer src="JavaScript/index.js"></script>
+    <script defer src="JavaScript/fichajes.js"></script>
     <title>WorkHub</title>
 </head>
 
@@ -30,7 +26,7 @@ if (!isset($_SESSION['correoUsuario'])) {
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="fichajes.php">Fichajes</a></li>
+                <li><a href="fichaje.php">Fichajes</a></li>
                 <li><a href="#">Calendario</a></li>
                 <li><a href="#">Perfil</a></li>
                 <li><a href="delete_session.php">Salir</a></li>
@@ -39,18 +35,26 @@ if (!isset($_SESSION['correoUsuario'])) {
     </header>
 
     <main>
-        <div id="carousel">
-            <div class="slide">
-                <img id="imgSlider" src="Recursos/Carrusel/pexels-vojtech-okenka-127162-392018.jpg">
-            </div>
+        <div id="background-image">
+            <img id="imgFondo" src="Recursos/Otros/pexels-tirachard-kumtanom-112571-733857.jpg">
         </div>
 
-        <h1>WorkHub</h1>
-        <h2>Registra tu jornada y gestiona eventos con facilidad. ¡WorkHub, tu aliado laboral!</h2>
 
-        <div class="botones">
-            <button id="entradaBtn">Entrada</button>
-            <button id="salidaBtn">Salida</button>
+        <div id="fichajes-container">
+            <!-- Aquí se cargarán los fichajes del usuario -->
+            <table id="fichajes-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Entrada</th>
+                        <th>Salida</th>
+                        <th>Tiempo</th>
+                    </tr>
+                </thead>
+                <tbody id="tBody">
+                    <!-- Los fichajes se agregarán aquí mediante JavaScript -->
+                </tbody>
+            </table>
         </div>
     </main>
 
