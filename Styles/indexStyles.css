@@ -161,7 +161,7 @@ footer a:hover {
 
 #fichajes-table th,
 #fichajes-table td {
-    padding: 15px; /* Se reduce el padding para disminuir la separación */
+    padding: 15px; 
 }
 
 #fichajes-table th {
