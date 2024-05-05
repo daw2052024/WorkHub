@@ -89,7 +89,7 @@ async function sendDataToRegister(nombre, email, pwd, confPwd) {
             window.location.href = 'login.php';
         }
     } catch (error) {
-        console.log("Error en la solicitud: " + error.message); // Corregir esta línea
+        console.log("Error en la solicitud: " + error.message); 
 
     }
 }
