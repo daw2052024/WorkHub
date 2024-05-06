@@ -1,19 +1,39 @@
 <?php
 session_start();
+require_once "conexion.php";
 
-//Verificar si hay session activa
-
+// Verificar si hay una sesión activa
 if (!isset($_SESSION['correoUsuario'])) {
     header("Location: login.php");
     exit();
 }
 
+// Verificar si se ha enviado un archivo de foto de perfil
+if (isset($_FILES['foto'])) {
+    $foto = $_FILES['foto'];
+    $directorio = 'Recursos/FotosUser/';
+
+    $rutaFoto = $directorio . $foto['name'];
+
+    if (move_uploaded_file($foto['tmp_name'], $rutaFoto)) {
+        $idUser = $_SESSION['idUsuario'];
+
+        $update = $bd->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
+        if ($update->execute([$rutaFoto, $idUser])) {
+            header("Location: perfil.php");
+            exit();
+        } else {
+            echo "Error al actualizar la foto de perfil.";
+        }
+    } else {
+        echo "Error al mover la foto de perfil al directorio.";
+    }
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +41,6 @@ if (!isset($_SESSION['correoUsuario'])) {
     <script defer src="JavaScript/perfil.js"></script>
     <title>WorkHub</title>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -38,26 +57,32 @@ if (!isset($_SESSION['correoUsuario'])) {
         </nav>
     </header>
     <div id="background-image">
-            <img id="imgFondo" src="Recursos/Otros/pexels-tirachard-kumtanom-112571-733852.jpg">
-        </div>
+        <img id="imgFondo" src="Recursos/Otros/pexels-tirachard-kumtanom-112571-733852.jpg">
+    </div>
     <section id="perfil">
         <h2 id="titulo_perfil">Mi Perfil</h2>
         <div class="perfil-info">
             <div class="foto-perfil">
-                <img src="#" alt="Foto de perfil">
+                <img id="foto-user" alt="Foto de perfil">
             </div>
             <div class="datos-personales">
                 <h3>Datos Personales</h3>
-
             </div>
         </div>
         <button id="editarPerfilBtn">Editar perfil</button>
         <div id="editarPerfilContainer" style="display: none;">
             <div class="editar-perfil">
                 <h3>Editar Perfil</h3>
-                <form id="insert-data" action="#" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                     <label for="foto">Foto de perfil:</label>
                     <input type="file" id="foto" name="foto">
+                    <br></br>
+                    <button type="submit">Cambiar foto de perfil</button>
+                </form>
+
+
+                <form id="insert-data" action="#" method="post" enctype="multipart/form-data">
+
 
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" name="nombre">
@@ -110,5 +135,4 @@ if (!isset($_SESSION['correoUsuario'])) {
         <p>Contacto: marcos.piedrahita.tellez@iesjulianmarias.es</p>
     </footer>
 </body>
-
 </html>

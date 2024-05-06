@@ -3,6 +3,7 @@ let editarPerfilBtn = document.getElementById("editarPerfilBtn");
 let editarPerfilContainer = document.getElementById("editarPerfilContainer");
 let divDatosPersonales = document.querySelector(".datos-personales");
 let form = document.querySelector("#insert-data");
+let imgPerfil = document.getElementById("foto-user");
 
 //Errores
 let errors;
@@ -40,6 +41,22 @@ let ubicacionError = document.createElement("span");
 ubicacionError.className = 'error';
 ubicacionError.id = 'ubicacion-error';
 
+
+//Cambio de la foto de perfil
+
+document.getElementById("foto").addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        // Mostrar la imagen previa antes de subirla
+        imgPerfil.src = e.target.result;
+    }
+
+    reader.readAsDataURL(file)
+
+
+});
 
 
 editarPerfilBtn.addEventListener("click", function () {
@@ -91,9 +108,8 @@ function cargarDatosPerfil(datos) {
     datos.forEach(dato => {
         Object.keys(dato).forEach(key => {
             const valor = dato[key];
-            if (valor !== null && valor !== "") {
-                let nombreMostrado=nombresMostrados[key] || key;
-                console.log(nombresMostrados[key]);
+            if (valor !== null && valor !== "" && key !== "foto_perfil") {
+                let nombreMostrado = nombresMostrados[key] || key;
                 let strongTag = document.createElement('strong');
                 strongTag.textContent = nombreMostrado + ": ";
                 let campoDato = document.createElement("p");
@@ -101,6 +117,10 @@ function cargarDatosPerfil(datos) {
                 campoDato.innerHTML += valor;
                 divDatosPersonales.appendChild(campoDato);
             }
+            if (dato['foto_perfil']) {
+                imgPerfil.src = dato['foto_perfil'];
+            }
+
         });
     });
 }
@@ -196,6 +216,7 @@ function compararDatosPerfil(datosActuales, datosFormulario) {
 
 async function updateDatoPerfil(campo, valor) {
 
+
     try {
         const response = await fetch("insert_user_data.php", {
             method: 'POST',
@@ -214,6 +235,7 @@ async function updateDatoPerfil(campo, valor) {
             errors.push(data.error);
             handleProfileErrors(errors);
         } else {
+
             window.location.reload();
 
         }
