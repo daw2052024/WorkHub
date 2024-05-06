@@ -5,12 +5,36 @@ let arrCarrusel = [
     'Recursos/Carrusel/pexels-vojtech-okenka-127162-392018.jpg'
 ];
 
-let entradaPresionada = false;
-let salidaPresionada = false;
-const entradaBtn = document.getElementById('entradaBtn');
-const salidaBtn = document.getElementById('salidaBtn');
+let entradaPresionada;
+let salidaPresionada
 let fechaEntrada;
 let horaEntrada;
+
+if (!sessionStorage.getItem("entradaPresionada")) {
+    entradaPresionada = false;
+    sessionStorage.setItem("entradaPresionada", entradaPresionada);
+} else {
+    entradaPresionada = sessionStorage.getItem("entradaPresionada") === "true";
+
+}
+if (!sessionStorage.getItem("salidaPresionada")) {
+    salidaPresionada = false;
+    sessionStorage.setItem("salidaPresionada", salidaPresionada);
+} else {
+    salidaPresionada = sessionStorage.getItem("salidaPresionada") === "true";
+
+}
+if (sessionStorage.getItem("fechaEntrada")) {
+    fechaEntrada = sessionStorage.getItem("fechaEntrada");
+}
+
+if (sessionStorage.getItem("horaEntrada")) {
+    horaEntrada = sessionStorage.getItem("horaEntrada");
+}
+
+const entradaBtn = document.getElementById('entradaBtn');
+const salidaBtn = document.getElementById('salidaBtn');
+
 
 //Sliser
 function Slider() {
@@ -30,11 +54,14 @@ Slider();
 
 
 entradaBtn.addEventListener('click', async function () {
-    if (!entradaPresionada && !salidaPresionada) {
+    console.log(entradaPresionada + " " + salidaPresionada);
+    if (entradaPresionada === false && salidaPresionada === false) {
         entradaPresionada = true;
-
+        sessionStorage.setItem("entradaPresionada", entradaPresionada);
         fechaEntrada = obtenerFecha();
         horaEntrada = obtenerHora();
+        sessionStorage.setItem("fechaEntrada", fechaEntrada);
+        sessionStorage.setItem("horaEntrada", horaEntrada);
 
     } else {
         alert("No puedes pulsar entrada otra vez sin pulsar salida primero.");
@@ -42,12 +69,18 @@ entradaBtn.addEventListener('click', async function () {
 });
 
 salidaBtn.addEventListener('click', async function () {
-    if (entradaPresionada && !salidaPresionada) {
+    console.log(entradaPresionada + " " + salidaPresionada);
+    if (entradaPresionada === true && salidaPresionada === false) {
         //salidaPresionada = true;
         entradaPresionada = false;
+        sessionStorage.setItem("entradaPresionada", entradaPresionada);
+        fechaSalida = obtenerFecha();
+        horaSalida = obtenerHora();
+        sessionStorage.setItem("fechaSalida", fechaSalida);
+        sessionStorage.setItem("horaSalida", horaSalida);
+
         console.log("Salida pulsada");
 
-        let horaSalida = obtenerHora();
         let diferencia = calcularDiferenciaTiempo(horaEntrada, horaSalida);
 
         try {
