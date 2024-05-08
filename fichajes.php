@@ -27,7 +27,7 @@ if (!isset($_SESSION['correoUsuario'])) {
             <ul>
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="fichajes.php">Fichajes</a></li>
-                <li><a href="#">Calendario</a></li>
+                <li><a href="calendario.php">Calendario</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="delete_session.php">Salir</a></li>
             </ul>

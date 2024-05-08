@@ -111,7 +111,7 @@ function validarContraseña(contraseña, confContraseña) {
 }
 
 function handleRegistrationErrors(errors) {
-    clearRegistrationErrors();
+    clearCalendarErrors();
 
 
     errors.forEach(error => {
@@ -152,7 +152,7 @@ function handleRegistrationErrors(errors) {
     });
 }
 
-function clearRegistrationErrors() {
+function clearCalendarErrors() {
     nameErrorContainer.innerText = '';
     emailErrorContainer.innerText = '';
     pwdErrorContainer.innerText = '';

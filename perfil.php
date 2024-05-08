@@ -34,6 +34,7 @@ if (isset($_FILES['foto'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +42,7 @@ if (isset($_FILES['foto'])) {
     <script defer src="JavaScript/perfil.js"></script>
     <title>WorkHub</title>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -50,7 +52,7 @@ if (isset($_FILES['foto'])) {
             <ul>
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="fichajes.php">Fichajes</a></li>
-                <li><a href="#">Calendario</a></li>
+                <li><a href="calendario.php">Calendario</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="delete_session.php">Salir</a></li>
             </ul>
@@ -135,4 +137,5 @@ if (isset($_FILES['foto'])) {
         <p>Contacto: marcos.piedrahita.tellez@iesjulianmarias.es</p>
     </footer>
 </body>
+
 </html>
