@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: workhub_bd
+      MYSQL_USER: marcos
+      MYSQL_PASSWORD: marcos
+    ports:
+      - "8084:3306"
+    volumes:
+      - ./bd_data:/var/lib/mysql
+
+  php:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./apache/WorkHub:/var/www/html
+    depends_on:
+      - db
