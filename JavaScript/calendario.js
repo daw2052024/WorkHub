@@ -133,7 +133,6 @@ function formatDate(dateString) {
     return `${month}/${day}/${year}`;
 }
 
-// Función para formatear la hora de entrada a HH:MM AM/PM
 function formatTime(timeString) {
     let [hours, minutes] = timeString.split(':');
     let period = 'AM';

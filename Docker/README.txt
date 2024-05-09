@@ -1,0 +1,1 @@
+No es necesasrio ejecutar el docker-compose_bd.yml. Ya que la base de datos ya viene configurada en el otro docker-compose.ymls

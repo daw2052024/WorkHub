@@ -52,3 +52,4 @@ if ($result === false) {
 
 $response = array('success' => true, 'message' => 'Evento insertado correctamente');
 echo json_encode($response);
+    

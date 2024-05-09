@@ -41,7 +41,7 @@ if (!isset($_SESSION['correoUsuario'])) {
 
 
         <div id="fichajes-container">
-            <!-- Aquí se cargarán los fichajes del usuario -->
+           
             <table id="fichajes-table">
                 <thead>
                     <tr>
@@ -52,7 +52,7 @@ if (!isset($_SESSION['correoUsuario'])) {
                     </tr>
                 </thead>
                 <tbody id="tBody">
-                    <!-- Los fichajes se agregarán aquí mediante JavaScript -->
+                 
                 </tbody>
             </table>
         </div>

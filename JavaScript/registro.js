@@ -60,7 +60,7 @@ registerForm.addEventListener('submit', function (e) {
 
     handleRegistrationErrors(errors);
 
-    if (errors.length > 0) {
+    if (errors.length > 0) {    
         return;
     } else {
         sendDataToRegister(name, email, password, confpassword);
