@@ -4,7 +4,7 @@ require_once "conexion.php";
 $idUser = $_SESSION['idUsuario'];
 
 try {
-    $sql = "SELECT * FROM usuarios 
+    $sql = "SELECT * FROM Usuarios 
     WHERE id=" . $idUser . ";";
     $datos_user = $bd->query($sql);
     $varArray = [];
