@@ -18,7 +18,7 @@ if (isset($_FILES['foto'])) {
     if (move_uploaded_file($foto['tmp_name'], $rutaFoto)) {
         $idUser = $_SESSION['idUsuario'];
 
-        $update = $bd->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
+        $update = $bd->prepare("UPDATE Usuarios SET foto_perfil = ? WHERE id = ?");
         if ($update->execute([$rutaFoto, $idUser])) {
             header("Location: perfil.php");
             exit();
