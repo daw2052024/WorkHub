@@ -5,7 +5,7 @@ FROM php:8.2-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copiar el código fuente de tu proyecto al directorio del servidor web
-COPY apache/WorkHub /var/www/html
+COPY WorkHub /var/www/html
 
 # Exponer el puerto 80 para que Apache pueda ser accesible desde fuera del contenedor
 EXPOSE 80
