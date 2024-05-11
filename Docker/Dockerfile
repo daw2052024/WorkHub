@@ -1,4 +1,4 @@
-  GNU nano 5.4                                                             Dockerfile                                                                       # Utilizar una imagen base con PHP y Apache
+# Utilizar una imagen base con PHP y Apache
 FROM php:8.2-apache
 
 # Instalar el driver de MySQL para PHP
